@@ -9,7 +9,10 @@ Resume optimization tool that transforms any resume into a job-specific, ATS-fri
 - **Any format in** - LaTeX, plain text, markdown, HTML, PDF
 - **Optimized PDF out** - Single-page, professionally formatted
 - **LLM-powered optimization** - Tailors content to job requirements
-- **Multi-filter validation** - ATS simulation, keyword matching, hallucination detection
+- **Minimal changes** - Preserves your content, only restructures for fit
+- **No fabrication** - Hallucination detection prevents made-up claims
+- **Opinionated formatting** - Follows proven resume guidelines (one page, no fluff, etc.)
+- **Multi-filter validation** - ATS simulation, keyword matching, structure checks
 - **Web UI + CLI** - Streamlit dashboard or command-line
 - **Debug mode** - Inspect optimization iterations
 
@@ -62,15 +65,23 @@ uv run hr-breaker optimize resume.txt job.txt -d
 uv run hr-breaker list
 ```
 
+## Output
+
+- Final PDFs: `output/<name>_<company>_<role>.pdf`
+- Debug iterations: `output/debug_<company>_<role>/`
+- Records: `output/index.json`
+
 ## Configuration
 
 | Variable | Required | Description |
 |----------|----------|-------------|
 | `GOOGLE_API_KEY` | Yes | Google Gemini API key |
-| `GEMINI_PRO_MODEL` | No | Model for complex tasks (default: `gemini-2.5-pro`) |
-| `GEMINI_FLASH_MODEL` | No | Model for simple tasks (default: `gemini-2.5-flash`) |
-| `GEMINI_THINKING_BUDGET` | No | Thinking tokens budget |
+| `GEMINI_PRO_MODEL` | No | Model for complex tasks (default: `gemini-3-pro-preview`) |
+| `GEMINI_FLASH_MODEL` | No | Model for simple tasks (default: `gemini-3-flash-preview`) |
+| `GEMINI_THINKING_BUDGET` | No | Thinking tokens budget (default: 4k) |
 | `MAX_ITERATIONS` | No | Optimization loop limit (default: 5) |
+
+---
 
 ## Architecture
 
@@ -105,9 +116,3 @@ uv run pytest tests/
 # Install dev dependencies
 uv sync --group dev
 ```
-
-## Output
-
-- Final PDFs: `output/<name>_<company>_<role>.pdf`
-- Debug iterations: `output/debug_<company>_<role>/`
-- Records: `output/index.json`
